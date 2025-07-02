@@ -1,0 +1,81 @@
+.progress {
+  &__list {
+    display: flex;
+    list-style: none;
+    gap: 0;
+    border-radius: 4px;
+    padding: 4px 8px;
+    position: relative;
+    justify-content: space-between;
+
+    &::after {
+      content: '';
+      width: 350px;
+      height: 1px;
+      background-color: #d1d1d1;
+      align-self: center;
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  &__step {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+
+    &:hover {}
+
+    // MODIFIER: ACTIVE
+    &--active {}
+
+    // MODIFIER: COMPLETED
+    &--success {}
+  }
+
+  &__icon {
+    display: block;
+    height: 24px;
+    width: 24px;
+    background-color: rgba(240, 240, 240, 1);
+    border-radius: 50%;
+    border: 1px solid #D1D1D1;
+    z-index: 1;
+    position: relative;
+    svg {
+      display: none;
+      z-index: -1;
+      color:  rgba(240, 240, 240, 0);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height:16px;
+      transform: translate(-50%, -50%);
+    }
+
+    // MODIFIER: ACTIVE
+    &--active {
+      background-color: #FFF;
+    }
+
+    // MODIFIER: SUCCESS
+    &--success {
+      background-color: rgba(14, 112, 14, 1);
+      svg {
+        display: flex;
+        color:  rgba(240, 240, 240, 1);
+        z-index: 1;
+      }
+    }
+
+  }
+}

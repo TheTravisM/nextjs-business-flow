@@ -1,4 +1,7 @@
 import React from "react";
+import CheckIcon from '@mui/icons-material/Check';
+import "../scss/components/ProgressStepper.scss";
+
 
 interface ProgressStepperProps {
   step: number;
@@ -21,19 +24,27 @@ export default function ProgressStepper({ step }: ProgressStepperProps) {
     <nav className="modal__progress-stepper progress">
       <ul className="progress__list">
         <li className={`progress__step progress__step--criteria${getStepClass(2)}`}>
-          <div className={`progress__icon${getIconClass(2)}`}></div>
+          <div className={`progress__icon${getIconClass(2)}`}>
+            <CheckIcon/>
+          </div>
           <span className="progress__label">Criteria</span>
         </li>
         <li className={`progress__step progress__step--trigger${getStepClass(3)}`}>
-          <div className={`progress__icon${getIconClass(3)}`}></div>
+          <div className={`progress__icon${getIconClass(3)}`}>
+            <CheckIcon/>
+          </div>
           <span className="progress__label">Trigger</span>
         </li>
         <li className={`progress__step progress__step--action${getStepClass(4)}`}>
-          <div className={`progress__icon${getIconClass(4)}`}></div>
+          <div className={`progress__icon${getIconClass(4)}`}>
+            <CheckIcon/>
+          </div>
           <span className="progress__label">Action</span>
         </li>
         <li className={`progress__step progress__step--review${getStepClass(5)}`}>
-          <div className={`progress__icon${getIconClass(5)}`}></div>
+          <div className={`progress__icon${getIconClass(5)}`}>
+            <CheckIcon/>
+          </div>
           <span className="progress__label">Review</span>
         </li>
       </ul>

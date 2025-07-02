@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined';
 import StoreIcon from '@mui/icons-material/Store';
@@ -15,47 +15,71 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import PowerOutlinedIcon from '@mui/icons-material/PowerOutlined';
 import PowerIcon from '@mui/icons-material/Power';
 
+const options = [
+  {
+    label: "Company",
+    outlined: <StoreOutlinedIcon />,
+    filled: <StoreIcon />,
+  },
+  {
+    label: "Record",
+    outlined: <ArticleOutlinedIcon />,
+    filled: <ArticleIcon />,
+  },
+  {
+    label: "Website",
+    outlined: <LanguageOutlinedIcon />,
+    filled: <LanguageIcon />,
+  },
+  {
+    label: "Expiration",
+    outlined: <CalendarTodayOutlinedIcon />,
+    filled: <CalendarTodayIcon />,
+  },
+  {
+    label: "User",
+    outlined: <PersonOutlineOutlinedIcon />,
+    filled: <PersonOutlineIcon />,
+  },
+  {
+    label: "Group",
+    outlined: <GroupsOutlinedIcon />,
+    filled: <GroupsIcon />,
+  },
+  {
+    label: "Integration",
+    outlined: <PowerOutlinedIcon />,
+    filled: <PowerIcon />,
+  },
+];
+
 export default function Criteria01() {
+
+  const [selected, setSelected] = useState<number | null>(0); // Default: first option selected
+
+  const handleOptionClick = (idx: number) => {
+    setSelected(idx === selected ? null : idx);
+  };
+
+
   return (
     <main id="criteria-01" className="modal__content content">
       <h2 className="content__title">What will this workflow be based on?</h2>
-
       <section className="options options--criteria-01">
-        <div className="options__item options__item--company options__item--selected">
-          <StoreOutlinedIcon />
-          <StoreIcon />
-          <span className="options__text">Company</span>
-        </div>
-        <div className="options__item options__item--record">
-          <ArticleOutlinedIcon />
-          <ArticleIcon />
-          <span className="options__text">Record</span>
-        </div>
-        <div className="options__item options__item--website">
-          <LanguageOutlinedIcon />
-          <LanguageIcon />
-          <span className="options__text">Website</span>
-        </div>
-        <div className="options__item options__item--expiration">
-          <CalendarTodayIcon />
-          <CalendarTodayOutlinedIcon />
-          <span className="options__text">Expiration</span>
-        </div>
-        <div className="options__item options__item--user">
-          <PersonOutlineIcon />
-          <PersonOutlineOutlinedIcon />
-          <span className="options__text">User</span>
-        </div>
-        <div className="options__item options__item--group">
-          <GroupsIcon />
-          <GroupsOutlinedIcon />
-          <span className="options__text">Group</span>
-        </div>
-        <div className="options__item options__item--integration">
-          <PowerOutlinedIcon />
-          <PowerIcon />
-          <span className="options__text">Integration</span>
-        </div>
+        {options.map((option, idx) => (
+          <div
+            key={option.label}
+            className={
+              `options__item options__item--${option.label.toLowerCase()}` +
+              (selected === idx ? " options__item--selected" : "")
+            }
+            onClick={() => handleOptionClick(idx)}
+            style={{ cursor: "pointer" }}
+          >
+            {selected === idx ? option.filled : option.outlined}
+            <span className="options__text">{option.label}</span>
+          </div>
+        ))}
       </section>
     </main>
   );

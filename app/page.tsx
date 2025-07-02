@@ -8,9 +8,16 @@ import ProgressStepper from "../components/ProgressStepper";
 import Criteria01 from "../components/steps/Criteria01";
 import Criteria02 from "../components/steps/Criteria02";
 import Trigger01 from "../components/steps/Trigger01";
+import Action01 from "../components/steps/Action01";
+import Review01 from "../components/steps/Review01";
+
 
 export default function Home() {
   const [step, setStep] = useState(1);
+
+  // Add selection state for Criteria02 options
+  const [criteria02Selected, setCriteria02Selected] = useState<boolean[]>(Array(8).fill(false));
+
 
   return (
     <main className="main">
@@ -28,9 +35,16 @@ export default function Home() {
         {step === 1 ? (
           <Criteria01 />
         ) : step === 2 ? (
-          <Criteria02 />
+          <Criteria02 
+            selected={criteria02Selected}
+            setSelected={setCriteria02Selected}
+          />
         ) : step === 3 ? (
           <Trigger01 />
+        ) : step === 4 ? (
+          <Action01 />
+        ) : step === 5 ? (
+          <Review01 />
         ) : null}
 
         <footer className="modal__footer">
@@ -49,14 +63,14 @@ export default function Home() {
           )}
           {step < 5 && (
             <button
-              className="button button--primary"
+              className="button button--primary button--next"
               onClick={() => setStep(step + 1)}
             >
               Next
             </button>
           )}
           {step === 5 && (
-            <button id="save-btn" className="button button--primary" hidden>
+            <button id="save-btn" className="button button--primary button--save-draft" hidden>
               Save Draft
             </button>
           )}

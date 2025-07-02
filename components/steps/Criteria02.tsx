@@ -1,45 +1,104 @@
 import React from "react";
+import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
+import StoreIcon from "@mui/icons-material/Store";
+import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import ArticleIcon from "@mui/icons-material/Article";
+import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import LanguageIcon from "@mui/icons-material/Language";
 
-export default function Criteria02() {
+const options = [
+  {
+    label: "Password",
+    outlined: <VpnKeyOutlinedIcon />,
+    filled: <VpnKeyIcon />,
+  },
+  {
+    label: "Company KB Article",
+    outlined: <ArticleOutlinedIcon />,
+    filled: <ArticleIcon />,
+  },
+  {
+    label: "Central KB Article",
+    outlined: <ArticleOutlinedIcon />,
+    filled: <ArticleIcon />,
+  },
+  {
+    label: "Process",
+    outlined: <StoreOutlinedIcon />,
+    filled: <StoreIcon />,
+  },
+  {
+    label: "Website",
+    outlined: <LanguageOutlinedIcon />,
+    filled: <LanguageIcon />,
+  },
+  {
+    label: "Rack",
+    outlined: <StoreOutlinedIcon />,
+    filled: <StoreIcon />,
+  },
+  {
+    label: "Netword",
+    outlined: <StoreOutlinedIcon />,
+    filled: <StoreIcon />,
+  },
+  {
+    label: "Asset",
+    outlined: <StoreOutlinedIcon />,
+    filled: <StoreIcon />,
+  },
+];
+
+export default function Criteria02({
+  selected,
+  setSelected,
+}: {
+  selected: boolean[];
+  setSelected: (val: boolean[]) => void;
+}) {
+  const allSelected = selected.every(Boolean);
+
+  const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelected(Array(options.length).fill(e.target.checked));
+  };
+
+  const handleOptionClick = (idx: number) => {
+    const updated = [...selected];
+    updated[idx] = !updated[idx];
+    setSelected(updated);
+  };
+
   return (
     <main id="criteria-02" className="modal__content content">
       <h2 className="content__title">
         Which record type(s) should be included?
       </h2>
       <section className="options options--criteria-01">
-        <div className="options__item options__item--selected">
-          <div className="options__icon icon--password"></div>
-          <span className="options__text">Password</span>
+        {options.map((option, idx) => (
+          <div
+            key={option.label}
+            className={`options__item${
+              selected[idx] ? " options__item--selected" : ""
+            }`}
+            onClick={() => handleOptionClick(idx)}
+            style={{ cursor: "pointer" }}
+          >
+            {selected[idx] ? option.filled : option.outlined}
+            <span className="options__text">{option.label}</span>
+          </div>
+        ))}
+        <div>
+          <input
+            type="checkbox"
+            id="select-all"
+            name="select-all"
+            checked={allSelected}
+            onChange={handleSelectAll}
+          />
+          <label htmlFor="select-all">Select All</label>
         </div>
-        <div className="options__item">
-          <div className="options__icon icon--company-KB-article"></div>
-          <span className="options__text">Company KB Article</span>
-        </div>
-        <div className="options__item">
-          <div className="options__icon icon--website"></div>
-          <span className="options__text">Central KB Article</span>
-        </div>
-        <div className="options__item">
-          <div className="options__icon icon--expiration"></div>
-          <span className="options__text">Process</span>
-        </div>
-        <div className="options__item">
-          <div className="options__icon icon--user"></div>
-          <span className="options__text">Website</span>
-        </div>
-        <div className="options__item">
-          <div className="options__icon icon--group"></div>
-          <span className="options__text">Rack</span>
-        </div>
-        <div className="options__item">
-          <div className="options__icon icon--integration"></div>
-          <span className="options__text">Netword</span>
-        </div>
-        <div className="options__item">
-          <div className="options__icon icon--integration"></div>
-          <span className="options__text">Asset</span>
-        </div>
-        TODO: Add check box "Select All"
       </section>
     </main>
   );

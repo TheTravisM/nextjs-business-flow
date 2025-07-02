@@ -46,7 +46,7 @@ $base-gap: 8px;
   &--primary {
     background-color: $primary-color;
     color: $light-text-color;
-    max-width: 280px;
+    justify-self: flex-end;
 
     &:hover {
       background-color: $primary-color-hover;
@@ -60,6 +60,16 @@ $base-gap: 8px;
     }
   }
 
+  &--next {
+  justify-self: end; // Align to the left // Pushes to the right when it's the only button
+}
+
+  &--save-draft {
+  justify-self: end; // Align to the left // Pushes to the right when it's the only button
+}
+  
+
+
   // MODIFIER: Back link button
   &--back {
     font-weight: 400;
@@ -69,11 +79,13 @@ $base-gap: 8px;
     margin-right: auto; // Pushes other buttons to the right
     padding: 0; // Reset padding for a link-like feel
     min-height: auto;
+    justify-self: start; // Align to the left
   }
 
   // MODIFIER: Tertiary action button
   &--finish-later {
     color: $primary-color;
+    justify-self: flex-end;
     
     &:hover {
       color: $link-color;
@@ -83,6 +95,7 @@ $base-gap: 8px;
   // MODIFIER: Tertiary action button (similar to finish-later)
   &--add-condition {
     color: $primary-color;
+    margin-left: auto ;
 
     &:hover {
       background-color: rgba($primary-color, 0.1);
