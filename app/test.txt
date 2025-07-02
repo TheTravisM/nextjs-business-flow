@@ -1,0 +1,76 @@
+
+        
+        
+        
+        
+        
+        
+        
+        {/* trigger */}
+        TODO: Save and finsih later button appears from ech step onward TODO:
+        when an option is selected the + Add Condtion button appears,
+        <main id="trigger" className="modal__content">
+          <h2 className="content__title">
+            What should trigger this workflow?
+          </h2>
+
+          <section className="options options--criteria-01">
+            <div className="options__item options__item--selected">
+              <div className="options__icon icon--record-created"></div>
+              <span className="options__text">record created</span>
+            </div>
+            <div className="options__item">
+              <div className="options__icon icon--record-updated"></div>
+              <span className="options__text">record updated</span>
+            </div>
+            <button className="button button--text">+ Add Condition</button>
+          </section>
+        </main>
+
+        {/* action */}
+        <main id="action" className="modal__content content--action">
+          <h2 className="content__title">
+            What should happen once the workflow begins?
+          </h2>
+          <p className="content__details">
+            Select at least 1 action to continue. You can add additional actions
+            later
+          </p>
+
+          <section className="options options--criteria-01">
+            <div className="options__item options__item--selected">
+              <div className="options__icon icon--record-created"></div>
+              <span className="options__text">Add flag</span>
+            </div>
+            <div className="options__item">
+              <div className="options__icon icon--record-updated"></div>
+              <span className="options__text">Send Email</span>
+            </div>
+            <div className="options__item">
+              <div className="options__icon icon--record-updated"></div>
+              <span className="options__text">Send webhook</span>
+            </div>
+          </section>
+        </main>
+
+
+        {/* review */}
+        <main id="review" className="modal__content content--review">
+          <h2 className="content__title">
+            Review your workflow below. Click a step to make edits if needed.
+          </h2>
+
+          <section className="review">
+            <p>When any of the follow record types is created, add a flag.</p>
+            <ul>
+              <li>Password</li>
+              <li>Company KB article</li>
+              <li>Central KB article</li>
+              <li>Process</li>
+              <li>Website</li>
+              <li> Rack</li>
+              <li>Network</li>
+              <li>Asset</li>
+            </ul>
+          </section>
+        </main>

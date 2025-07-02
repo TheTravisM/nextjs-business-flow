@@ -1,0 +1,91 @@
+// --- BUTTONS ---
+
+// --- VARIABLES ---
+// Define reusable values for easy maintenance.
+$font-main: 'Roboto', sans-serif;
+$primary-color: rgba(24, 73, 169, 1);
+$primary-color-hover: #1d4ed8;
+$light-text-color: #fff;
+$link-color: rgba(47, 109, 233, 1);
+$base-font-size: 14px;
+$base-line-height: 20px;
+$base-letter-spacing: 0.1px;
+$base-border-radius: 8px;
+$base-min-height: 36px;
+$base-padding: 8px 16px;
+$base-gap: 8px;
+
+// --- MIXINS ---
+// A mixin for common button styles to keep the code DRY.
+@mixin button-base {
+  display: inline-flex; // Use inline-flex for button-like behavior
+  align-items: center;
+  justify-content: center;
+  font-family: $font-main;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  letter-spacing: $base-letter-spacing;
+  min-height: $base-min-height;
+  padding: $base-padding;
+  gap: $base-gap;
+  border-radius: $base-border-radius;
+  font-weight: 500;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+// --- BUTTON STYLES ---
+.button {
+  // Apply the base styles to all buttons.
+  @include button-base;
+
+  // MODIFIER: Primary action button
+  &--primary {
+    background-color: $primary-color;
+    color: $light-text-color;
+    max-width: 280px;
+
+    &:hover {
+      background-color: $primary-color-hover;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+  }
+
+  // MODIFIER: Back link button
+  &--back {
+    font-weight: 400;
+    letter-spacing: 0.16px;
+    text-decoration: underline;
+    color: $link-color;
+    margin-right: auto; // Pushes other buttons to the right
+    padding: 0; // Reset padding for a link-like feel
+    min-height: auto;
+  }
+
+  // MODIFIER: Tertiary action button
+  &--finish-later {
+    color: $primary-color;
+    
+    &:hover {
+      color: $link-color;
+    }
+  }
+
+  // MODIFIER: Tertiary action button (similar to finish-later)
+  &--add-condition {
+    color: $primary-color;
+
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+}

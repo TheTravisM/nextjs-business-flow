@@ -1,56 +1,65 @@
-//import Image from "next/image";
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+"use client";
+import { useState } from "react";
+
+import CloseIcon from "@mui/icons-material/Close";
+
+import ProgressStepper from "../components/ProgressStepper";
+
+import Criteria01 from "../components/steps/Criteria01";
+import Criteria02 from "../components/steps/Criteria02";
+import Trigger01 from "../components/steps/Trigger01";
 
 export default function Home() {
+  const [step, setStep] = useState(1);
+
   return (
     <main className="main">
       <dialog id="new-work-flow" className="modal" open>
         <header className="modal__header">
-          <h1 className="modal__title">New Work Flow</h1>
-          <button className="modal__close">x</button>
+          <h5 className="modal__title">New Work Flow</h5>
+          <button className="modal__close">
+            <CloseIcon />
+          </button>
         </header>
 
-        <nav className="modal__progress">
-          <ul className="modal__progress-list">
-            <li className="modal__progress-item modal__progress-item--active">
-              <div className="progress-icon"></div>
-              <span className="progress__label">Criteria</span>
-            </li>
-            <li className="modal__progress-item">
-              <div className="progress-icon"></div>
-              <span className="progress__label">Trigger</span>
-            </li>
-            <li className="modal__progress-item">
-              <div className="progress-icon"></div>
-              <span className="progress__label">Action</span>
-            </li>
-            <li className="modal__progress-item">
-              <div className="progress-icon"></div>
-              <span className="progress__label">Review</span>
-            </li>
-          </ul>
-        </nav>
+        <ProgressStepper step={step} />
 
-        <section className="modal__content">
-          <ul className="modal__list">
-            <li className="modal__item">Company</li>
-            <li className="modal__item">Record</li>
-            <li className="modal__item">Website</li>
-            <li className="modal__item">Expiration</li>
-            <li className="modal__item">User</li>
-            <li className="modal__item">Group</li>
-            <li className="modal__item">Integration</li>
-          </ul>
-        </section>
+        {/* Conditionally render criteria steps */}
+        {step === 1 ? (
+          <Criteria01 />
+        ) : step === 2 ? (
+          <Criteria02 />
+        ) : step === 3 ? (
+          <Trigger01 />
+        ) : null}
 
         <footer className="modal__footer">
-          <button className="modal__button modal__button--secondary">
-            Back
-          </button>
-          <button className="modal__button modal__button--tertiary">
-            Save and Finish Later
-          </button>
-          <button className="modal__button modal__button--primary">Next</button>
+          {step >= 2 && (
+            <button
+              className="button button--back"
+              onClick={() => setStep(step - 1)}
+            >
+              Back
+            </button>
+          )}
+          {step >= 3 && (
+            <button className="button button--finish-later">
+              Save and Finish Later
+            </button>
+          )}
+          {step < 5 && (
+            <button
+              className="button button--primary"
+              onClick={() => setStep(step + 1)}
+            >
+              Next
+            </button>
+          )}
+          {step === 5 && (
+            <button id="save-btn" className="button button--primary" hidden>
+              Save Draft
+            </button>
+          )}
         </footer>
       </dialog>
     </main>
