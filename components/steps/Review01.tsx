@@ -20,7 +20,7 @@ export default function Review01({ criteria02Selections, triggerSelection}: Revi
             Review your workflow below. Click a step to make edits if needed.
           </h2>
 
-      <section className="review">
+      <section className="content__well">
         <p>When any of the following record types is {triggerText}, add a flag.</p>
         <ul>
           {criteria02Selections.map(label => (

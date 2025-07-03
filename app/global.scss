@@ -1,11 +1,8 @@
-// @import "../scss/00_reset.scss";
-// @import "../scss/01_global.scss";
-// @import "../scss/02_components.scss";
-
-@use "../scss/reset.scss";
-@use "../scss/global.scss";
-@use "../scss/components/buttons.scss";
-@use "../scss/components/ProgressStepper.scss";
+@import "../scss/reset.scss";
+@import "../scss/global.scss";
+@import "../scss/components/buttons.scss";
+@import "../scss/components/ProgressStepper.scss";
+@import "../scss/components/options.scss";
 
 
 /* Content */
@@ -23,77 +20,49 @@
     &__details {
     font-family: Roboto;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 22px;
-    letter-spacing: 0px;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.32px;
+    color: rgba(66, 66, 66, 1);
+    margin: -6px 0 12px 0;
   }
-}
-
-/* Options */
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
-
-  // ELEMENT: item
-  &__item {
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    border: 1px solid #e5e5e5;
+  &__well {
+    background: rgba(250, 250, 250, 1);
+    border: 1px solid rgba(224, 224, 224, 1);
+    gap: 6px;
     border-radius: 4px;
-    cursor: pointer;
-    //transition: all 0.2s ease;
-    background-color: #ffffff;
-    height: 36px;
-    gap: 8px;
-
-    &:hover {
-      border-color: #d1d5db;
-      background-color: #f9fafb;
+    padding: 6px;
+    p {
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.25px;
     }
-
-    // MODIFIER: selected
-    &--selected {
-      background-color: rgba(222, 234, 248, 1);
-      border: 2px solid rgba(24, 73, 169, 1);
-      height: 34px;
-
-      // Styles for elements within a selected item
-      .options__icon {
-        color: #2563eb;
+    ul {
+      margin-left: 20px;
+      li{
+        position: relative;
+        &::before {
+        position: absolute;
+        content: "";
+        height:3px;
+        width: 3px;
+        background-color: #242424;
+        top: 50%;
+        left: -12px;
+        transform: translateY(-50%);
+        border-radius: 50%;
       }
-
-      .options__text {
-        color: #1e40af;
+      &::marker {
+        font-size: 1px;
+        z-index: -1;
       }
     }
-  }
-
-  // ELEMENT: icon
-  &__icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    color: rgba(36, 36, 36, 1);
-  }
-
-  // ELEMENT: text
-  &__text {
-    color: rgba(36, 36, 36, 1);
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.1px;
-    vertical-align: middle;
+    }
   }
 }
+
 
 /* Hidden utility */
 .hidden {

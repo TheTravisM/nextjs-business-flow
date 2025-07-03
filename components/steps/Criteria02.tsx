@@ -89,16 +89,16 @@ export default function Criteria02({
             <span className="options__text">{option.label}</span>
           </div>
         ))}
-        <div>
-          <input
-            type="checkbox"
-            id="select-all"
-            name="select-all"
-            checked={allSelected}
-            onChange={handleSelectAll}
-          />
-          <label htmlFor="select-all">Select All</label>
-        </div>
+  <label htmlFor="select-all" className="options__check-box">
+    <input
+      type="checkbox"
+      id="select-all"
+      name="select-all"
+      checked={allSelected}
+      onChange={handleSelectAll}
+    />
+    Select All
+  </label>
       </section>
     </main>
   );

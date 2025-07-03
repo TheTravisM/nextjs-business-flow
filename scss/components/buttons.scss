@@ -101,9 +101,5 @@ $base-gap: 8px;
   &--add-condition {
     color: $primary-color;
     margin-left: auto ;
-
-    &:hover {
-      background-color: rgba($primary-color, 0.1);
-    }
   }
 }
