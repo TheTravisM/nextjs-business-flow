@@ -85,6 +85,9 @@ $base-gap: 8px;
     padding: 0; // Reset padding for a link-like feel
     min-height: auto;
     justify-self: start; // Align to the left
+    svg {
+      height:16px;
+    }
   }
 
   // MODIFIER: Tertiary action button

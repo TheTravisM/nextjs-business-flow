@@ -1,40 +1,209 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Business Workflow Builder
+
+A multi-step workflow builder interface built with Next.js, TypeScript, and SCSS. This application allows users to create custom business workflows through an intuitive step-by-step process.
+
+## Features
+
+- **Multi-step workflow creation** with 5 distinct steps
+- **State persistence** using localStorage for "Save and Finish Later" functionality
+- **Real-time validation** with disabled navigation until required selections are made
+- **Responsive design** with modern UI components
+- **TypeScript support** for type safety
+- **SCSS styling** with component-based architecture
 
 ## Requirements
 
-Node v20 
+Before running this application, ensure you have the following installed:
 
-## Getting Started
+### System Requirements
+- **Node.js**: v20.0.0 or higher
+- **npm**: v9.0.0 or higher (comes with Node.js)
+- **Git**: Latest version for cloning the repository
 
-First, run the development server:
+### Optional but Recommended
+- **VS Code**: For the best development experience
+- **Node Version Manager (nvm)**: To manage Node.js versions
+
+### Check Your Installation
+Verify your setup by running these commands:
+
+```bash
+node --version    # Should show v20.x.x or higher
+npm --version     # Should show v9.x.x or higher
+git --version     # Should show installed version
+```
+
+## Installation & Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd nextjs-business-flow
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+This will install all required packages including:
+- Next.js 14+
+- React 18+
+- TypeScript
+- SASS/SCSS
+- Material-UI Icons
+
+### 3. Start the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 4. Open in Browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The page will automatically reload when you make changes to the code.
 
-## Learn More
+## Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+In the project directory, you can run:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### `npm run dev`
+Starts the development server on [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### `npm run build`
+Builds the app for production to the `.next` folder
 
-## Deploy on Vercel
+### `npm run start`
+Runs the built app in production mode
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### `npm run lint`
+Runs the linter to check for code quality issues
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### `npm run type-check`
+Runs TypeScript compiler to check for type errors
+
+## Project Structure
+
+```
+nextjs-business-flow/
+├── app/                    # Next.js app directory
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Main workflow page
+├── components/            # React components
+│   ├── ProgressStepper.tsx
+│   └── steps/             # Workflow step components
+│       ├── Criteria01.tsx
+│       ├── Criteria02.tsx
+│       ├── Trigger01.tsx
+│       ├── Action01.tsx
+│       └── Review01.tsx
+├── scss/                  # SCSS styling
+│   ├── global.scss
+│   └── components/        # Component-specific styles
+└── public/               # Static assets
+```
+
+## How to Use the Application
+
+### Workflow Creation Process
+
+1. **Step 1 - Choose Workflow Base**: Select the foundation for your workflow (Company, Record, Website, etc.)
+
+2. **Step 2 - Select Record Types**: Choose which record types the workflow should apply to
+
+3. **Step 3 - Define Trigger**: Set what event should trigger the workflow (Record created/updated)
+
+4. **Step 4 - Choose Actions**: Select what actions should happen when triggered (Add flag, Send email, etc.)
+
+5. **Step 5 - Review**: Review your workflow configuration before completion
+
+### Key Features
+
+- **Navigation**: Use "Next" and "Back" buttons to move between steps
+- **Validation**: "Next" button is disabled until required selections are made
+- **Save Draft**: Use "Save and Finish Later" to preserve your progress
+- **State Persistence**: Your selections are automatically saved in browser storage
+
+## Development
+
+### Adding New Steps
+
+1. Create a new component in `components/steps/`
+2. Add the step to the step mapping in `page.tsx`
+3. Update validation logic for the new step
+4. Add corresponding SCSS styles
+
+### Styling Guidelines
+
+- Use SCSS with BEM methodology
+- Component styles go in `scss/components/`
+- Follow existing naming conventions
+- Use CSS custom properties for consistent theming
+
+## Troubleshooting
+
+### Common Issues
+
+**Port 3000 already in use:**
+```bash
+npx kill-port 3000
+# or
+npm run dev -- -p 3001
+```
+
+**Module not found errors:**
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**TypeScript errors:**
+```bash
+npm run type-check
+```
+
+### Browser Compatibility
+
+This application supports:
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## Technologies Used
+
+- **Next.js 14**: React framework with app directory
+- **React 18**: UI library with hooks
+- **TypeScript**: Type-safe JavaScript
+- **SCSS**: Enhanced CSS with variables and nesting
+- **Material-UI Icons**: Icon components
+- **localStorage**: Client-side data persistence
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+If you encounter any issues or have questions:
+
+1. Check the [Troubleshooting](#troubleshooting) section
+2. Review existing [GitHub Issues](../../issues)
+3. Create a new issue with detailed information about your problem
+
+---
+
+Built with ❤️ using Next.js and TypeScript

@@ -40,7 +40,7 @@ const options = [
     filled: <StoreIcon />,
   },
   {
-    label: "Netword",
+    label: "Network",
     outlined: <StoreOutlinedIcon />,
     filled: <StoreIcon />,
   },
