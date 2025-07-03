@@ -8,8 +8,8 @@ import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import LanguageIcon from "@mui/icons-material/Language";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import PersonIcon from '@mui/icons-material/Person';
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PowerOutlinedIcon from "@mui/icons-material/PowerOutlined";
@@ -38,8 +38,8 @@ const options = [
   },
   {
     label: "User",
-    outlined: <PersonOutlineOutlinedIcon />,
-    filled: <PersonOutlineIcon />,
+    outlined: <PersonOutlinedIcon />,
+    filled: <PersonIcon />,
   },
   {
     label: "Group",

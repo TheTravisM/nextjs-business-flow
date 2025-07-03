@@ -7,6 +7,13 @@ import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import ArticleIcon from "@mui/icons-material/Article";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import LanguageIcon from "@mui/icons-material/Language";
+import ViewColumnOutlinedIcon from '@mui/icons-material/ViewColumnOutlined';
+import ViewColumnIcon from '@mui/icons-material/ViewColumn';
+import LanOutlinedIcon from '@mui/icons-material/LanOutlined';
+import LanIcon from '@mui/icons-material/Lan';
+import LensOutlinedIcon from '@mui/icons-material/LensOutlined';
+import LensIcon from '@mui/icons-material/Lens';
+
 
 const options = [
   {
@@ -36,18 +43,18 @@ const options = [
   },
   {
     label: "Rack",
-    outlined: <StoreOutlinedIcon />,
-    filled: <StoreIcon />,
+    outlined: <ViewColumnOutlinedIcon />,
+    filled: <ViewColumnIcon />,
   },
   {
     label: "Network",
-    outlined: <StoreOutlinedIcon />,
-    filled: <StoreIcon />,
+    outlined: <LanOutlinedIcon />,
+    filled: <LanIcon />,
   },
   {
     label: "Asset",
-    outlined: <StoreOutlinedIcon />,
-    filled: <StoreIcon />,
+    outlined: <LensOutlinedIcon />,
+    filled: <LensIcon />,
   },
 ];
 
