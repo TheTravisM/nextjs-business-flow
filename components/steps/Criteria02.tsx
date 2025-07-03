@@ -103,3 +103,4 @@ export default function Criteria02({
     </main>
   );
 }
+export { options as criteria02Options };

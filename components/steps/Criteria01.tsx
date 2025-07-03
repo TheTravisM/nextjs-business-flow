@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 
-import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined';
-import StoreIcon from '@mui/icons-material/Store';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import ArticleIcon from '@mui/icons-material/Article';
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import LanguageIcon from '@mui/icons-material/Language';
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-import GroupsIcon from '@mui/icons-material/Groups';
-import PowerOutlinedIcon from '@mui/icons-material/PowerOutlined';
-import PowerIcon from '@mui/icons-material/Power';
+import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
+import StoreIcon from "@mui/icons-material/Store";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import ArticleIcon from "@mui/icons-material/Article";
+import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import LanguageIcon from "@mui/icons-material/Language";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+import GroupsIcon from "@mui/icons-material/Groups";
+import PowerOutlinedIcon from "@mui/icons-material/PowerOutlined";
+import PowerIcon from "@mui/icons-material/Power";
 
 const options = [
   {
@@ -53,14 +53,16 @@ const options = [
   },
 ];
 
-export default function Criteria01() {
-
-  const [selected, setSelected] = useState<number | null>(0); // Default: first option selected
-
+export default function Criteria01({
+  selected,
+  setSelected,
+}: {
+  selected: number | null;
+  setSelected: (val: number | null) => void;
+}) {
   const handleOptionClick = (idx: number) => {
     setSelected(idx === selected ? null : idx);
   };
-
 
   return (
     <main id="criteria-01" className="modal__content content">
@@ -84,3 +86,4 @@ export default function Criteria01() {
     </main>
   );
 }
+export { options };

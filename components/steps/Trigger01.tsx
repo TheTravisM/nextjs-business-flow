@@ -1,27 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function Trigger01() {
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import AddIcon from "@mui/icons-material/AddOutlined";
+import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+
+const options = [
+  {
+    label: "record created",
+    outlined: <AddOutlinedIcon />,
+    filled: <AddIcon />,
+  },
+  {
+    label: "record updated",
+    outlined: <EditNoteOutlinedIcon />,
+    filled: <EditNoteIcon />,
+  },
+];
+
+export default function Trigger01({
+  selected,
+  setSelected,
+}: {
+  selected: number | null;
+  setSelected: (val: number | null) => void;
+}) {
+  const handleOptionClick = (idx: number) => {
+    setSelected(idx);
+  };
+
   return (
-    <>
-      {/* trigger  */}
-      TODO: Save and finsih later button appears from ech step onward 
-      TODO:when
-      an option is selected the + Add Condtion button appears,
-      <main id="trigger" className="modal__content">
-        <h2 className="content__title">What should trigger this workflow?</h2>
-
-        <section className="options options--criteria-01">
-          <div className="options__item options__item--selected">
-            <div className="options__icon icon--record-created"></div>
-            <span className="options__text">record created</span>
+    <main id="trigger" className="modal__content">
+      <h2 className="content__title">What should trigger this workflow?</h2>
+      <section className="options options--criteria-01">
+        {options.map((option, idx) => (
+          <div
+            key={option.label}
+            className={
+              "options__item" +
+              (selected === idx ? " options__item--selected" : "")
+            }
+            onClick={() => handleOptionClick(idx)}
+            style={{ cursor: "pointer" }}
+          >
+            {selected === idx ? option.filled : option.outlined}
+            <span className="options__text">{option.label}</span>
           </div>
-          <div className="options__item">
-            <div className="options__icon icon--record-updated"></div>
-            <span className="options__text">record updated</span>
-          </div>
-          <button className="button button--text">+ Add Condition</button>
-        </section>
-      </main>
-    </>
+        ))}
+        {selected !== null && (
+          <button className="button button--text button--add-condition">
+            + Add Condition
+          </button>
+        )}
+      </section>
+    </main>
   );
 }
+export { options as triggerOptions };

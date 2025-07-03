@@ -61,11 +61,16 @@ $base-gap: 8px;
   }
 
   &--next {
-  justify-self: end; // Align to the left // Pushes to the right when it's the only button
+  justify-self: end;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #ccc;
+  }
 }
 
   &--save-draft {
-  justify-self: end; // Align to the left // Pushes to the right when it's the only button
+  justify-self: end; 
 }
   
 
