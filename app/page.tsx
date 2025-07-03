@@ -16,7 +16,7 @@ export default function Home() {
   const [step, setStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [criteriaSelected, setCriteriaSelected] = useState<number | null>(null);
-  const [CriteriaTypeSelected, setCriteriaTypeSelected] = useState<boolean[]>(
+  const [criteriaTypeSelected, setCriteriaTypeSelected] = useState<boolean[]>(
     Array(8).fill(false)
   );
   const [triggerSelected, setTriggerSelected] = useState<number | null>(null);
@@ -26,7 +26,7 @@ export default function Home() {
     false,
   ]);
 
-  // Load saved data on component mount
+  // Load saved data
   useEffect(() => {
     try {
       const savedWorkflow = localStorage.getItem("workflow-draft");
@@ -35,7 +35,7 @@ export default function Home() {
         setStep(data.step || 1);
         setCriteriaSelected(data.criteriaSelected || null);
         setCriteriaTypeSelected(
-          data.CriteriaTypeSelected || Array(8).fill(false)
+          data.criteriaTypeSelected || Array(8).fill(false)
         );
         setTriggerSelected(data.triggerSelected || null);
         setActionSelected(data.actionSelected || [false, false, false]);
@@ -52,7 +52,7 @@ export default function Home() {
       const workflowData = {
         step,
         criteriaSelected,
-        CriteriaTypeSelected,
+        criteriaTypeSelected,
         triggerSelected,
         actionSelected,
         savedAt: new Date().toISOString(),
@@ -68,7 +68,7 @@ export default function Home() {
 
   // Filter selected labels for Review01
   const selectedCriteriaTypeLabels = CriteriaTypeOptions.filter(
-    (_, idx) => CriteriaTypeSelected[idx]
+    (_, idx) => criteriaTypeSelected[idx]
   ).map((option) => option.label);
 
   const selectedTriggerLabel =
@@ -78,12 +78,27 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
+  const handleSaveDraft = () => {
+    try {
+      localStorage.removeItem("workflow-draft");
+      alert("Workflow draft saved successfully!");
+      setStep(1);
+      setCriteriaSelected(null);
+      setCriteriaTypeSelected(Array(8).fill(false));
+      setTriggerSelected(null);
+      setActionSelected([false, false, false]);
+    } catch (error) {
+      console.error("Failed to complete workflow:", error);
+      alert("Failed to create workflow. Please try again.");
+    }
+  };
+
   const isStepValid = (currentStep: number) => {
     switch (currentStep) {
       case 1:
         return criteriaSelected !== null;
       case 2:
-        return CriteriaTypeSelected.some(Boolean);
+        return criteriaTypeSelected.some(Boolean);
       case 3:
         return triggerSelected !== null;
       case 4:
@@ -95,11 +110,14 @@ export default function Home() {
 
   const stepComponents: Record<number, React.ReactElement> = {
     1: (
-      <Criteria selected={criteriaSelected} setSelected={setCriteriaSelected} />
+      <Criteria 
+        selected={criteriaSelected} 
+        setSelected={setCriteriaSelected} 
+      />
     ),
     2: (
       <CriteriaType
-        selected={CriteriaTypeSelected}
+        selected={criteriaTypeSelected}
         setSelected={setCriteriaTypeSelected}
       />
     ),
@@ -159,13 +177,7 @@ export default function Home() {
               id="save-btn"
               className="button button--primary button--save-draft"
               onClick={() => {
-                localStorage.removeItem("workflow-draft"); // Clear draft
-                alert("Workflow draft saved successfully!");
-                setStep(1);
-                setCriteriaSelected(null);
-                setCriteriaTypeSelected(Array(8).fill(false));
-                setTriggerSelected(null);
-                setActionSelected([false, false, false]);
+                handleSaveDraft();
               }}
             >
               Save Draft
