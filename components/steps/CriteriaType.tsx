@@ -14,7 +14,6 @@ import LanIcon from '@mui/icons-material/Lan';
 import LensOutlinedIcon from '@mui/icons-material/LensOutlined';
 import LensIcon from '@mui/icons-material/Lens';
 
-
 const options = [
   {
     label: "Password",
@@ -58,13 +57,15 @@ const options = [
   },
 ];
 
+interface CriteriaTypeProps {
+  selected: boolean[];
+  setSelected: (val: boolean[]) => void;
+}
+
 export default function CriteriaType({
   selected,
   setSelected,
-}: {
-  selected: boolean[];
-  setSelected: (val: boolean[]) => void;
-}) {
+}: CriteriaTypeProps) {
   const allSelected = selected.every(Boolean);
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,16 +97,16 @@ export default function CriteriaType({
             <span className="options__text">{option.label}</span>
           </div>
         ))}
-  <label htmlFor="select-all" className="options__check-box">
-    <input
-      type="checkbox"
-      id="select-all"
-      name="select-all"
-      checked={allSelected}
-      onChange={handleSelectAll}
-    />
-    Select All
-  </label>
+        <label htmlFor="select-all" className="options__check-box">
+          <input
+            type="checkbox"
+            id="select-all"
+            name="select-all"
+            checked={allSelected}
+            onChange={handleSelectAll}
+          />
+          Select All
+        </label>
       </section>
     </main>
   );

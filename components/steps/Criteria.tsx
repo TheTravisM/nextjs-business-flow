@@ -53,13 +53,12 @@ const options = [
   },
 ];
 
-export default function Criteria({
-  selected,
-  setSelected,
-}: {
+interface CriteriaProps {
   selected: number | null;
   setSelected: (val: number | null) => void;
-}) {
+}
+
+export default function Criteria({ selected, setSelected }: CriteriaProps) {
   const handleOptionClick = (idx: number) => {
     setSelected(idx === selected ? null : idx);
   };

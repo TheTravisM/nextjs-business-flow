@@ -26,72 +26,76 @@ export default function Home() {
     false,
   ]);
 
-    // Load saved data on component mount
-    useEffect(() => {
-      try {
-        const savedWorkflow = localStorage.getItem('workflow-draft');
-        if (savedWorkflow) {
-          const data = JSON.parse(savedWorkflow);
-          setStep(data.step || 1);
-          setCriteriaSelected(data.criteriaSelected || null);
-          setCriteriaTypeSelected(data.CriteriaTypeSelected || Array(8).fill(false));
-          setTriggerSelected(data.triggerSelected || null);
-          setActionSelected(data.actionSelected || [false, false, false]);
-        }
-      } catch (error) {
-        console.error('Failed to load saved workflow:', error);
-        localStorage.removeItem('workflow-draft'); // Clear corrupted data
+  // Load saved data on component mount
+  useEffect(() => {
+    try {
+      const savedWorkflow = localStorage.getItem("workflow-draft");
+      if (savedWorkflow) {
+        const data = JSON.parse(savedWorkflow);
+        setStep(data.step || 1);
+        setCriteriaSelected(data.criteriaSelected || null);
+        setCriteriaTypeSelected(
+          data.CriteriaTypeSelected || Array(8).fill(false)
+        );
+        setTriggerSelected(data.triggerSelected || null);
+        setActionSelected(data.actionSelected || [false, false, false]);
       }
-    }, []);
+    } catch (error) {
+      console.error("Failed to load saved workflow:", error);
+      localStorage.removeItem("workflow-draft"); // Clear corrupted data
+    }
+  }, []);
 
-    // Save current state
-    const saveWorkflowDraft = () => {
-      try {
-        const workflowData = {
-          step,
-          criteriaSelected,
-          CriteriaTypeSelected,
-          triggerSelected,
-          actionSelected,
-          savedAt: new Date().toISOString()
-        };
-        
-        localStorage.setItem('workflow-draft', JSON.stringify(workflowData));
-        alert('Workflow saved! You can continue later.');
-      } catch (error) {
-        console.error('Failed to save workflow:', error);
-        alert('Failed to save workflow. Please try again.');
-      }
-    };
+  // Save current state
+  const saveWorkflowDraft = () => {
+    try {
+      const workflowData = {
+        step,
+        criteriaSelected,
+        CriteriaTypeSelected,
+        triggerSelected,
+        actionSelected,
+        savedAt: new Date().toISOString(),
+      };
+
+      localStorage.setItem("workflow-draft", JSON.stringify(workflowData));
+      alert("Workflow saved! You can continue later.");
+    } catch (error) {
+      console.error("Failed to save workflow:", error);
+      alert("Failed to save workflow. Please try again.");
+    }
+  };
 
   // Filter selected labels for Review01
-  const selectedCriteriaTypeLabels = CriteriaTypeOptions
-    .filter((_, idx) => CriteriaTypeSelected[idx])
-    .map((option) => option.label);
+  const selectedCriteriaTypeLabels = CriteriaTypeOptions.filter(
+    (_, idx) => CriteriaTypeSelected[idx]
+  ).map((option) => option.label);
 
   const selectedTriggerLabel =
     triggerSelected !== null ? triggerOptions[triggerSelected].label : "";
 
-      const closeModal = () => {
+  const closeModal = () => {
     setIsModalOpen(false);
   };
 
-    const isStepValid = (currentStep: number) => {
-      switch (currentStep) {
-        case 1: return criteriaSelected !== null;
-        case 2: return CriteriaTypeSelected.some(Boolean);
-        case 3: return triggerSelected !== null;
-        case 4: return actionSelected.some(Boolean);
-        default: return true;
-      }
-    };
+  const isStepValid = (currentStep: number) => {
+    switch (currentStep) {
+      case 1:
+        return criteriaSelected !== null;
+      case 2:
+        return CriteriaTypeSelected.some(Boolean);
+      case 3:
+        return triggerSelected !== null;
+      case 4:
+        return actionSelected.some(Boolean);
+      default:
+        return true;
+    }
+  };
 
   const stepComponents: Record<number, React.ReactElement> = {
     1: (
-      <Criteria
-        selected={criteriaSelected}
-        setSelected={setCriteriaSelected}
-      />
+      <Criteria selected={criteriaSelected} setSelected={setCriteriaSelected} />
     ),
     2: (
       <CriteriaType
@@ -99,16 +103,8 @@ export default function Home() {
         setSelected={setCriteriaTypeSelected}
       />
     ),
-    3: (
-      <Trigger
-        selected={triggerSelected} 
-        setSelected={setTriggerSelected}
-      />
-    ),
-    4: <Action
-        selected={actionSelected} 
-        setSelected={setActionSelected}
-        />,
+    3: <Trigger selected={triggerSelected} setSelected={setTriggerSelected} />,
+    4: <Action selected={actionSelected} setSelected={setActionSelected} />,
     5: (
       <Review
         criteriaTypeSelections={selectedCriteriaTypeLabels}
@@ -150,13 +146,13 @@ export default function Home() {
             </button>
           )}
           {step < 5 && (
-              <button
-                className="button button--primary button--next"
-                onClick={() => setStep(step + 1)}
-                disabled={!isStepValid(step)}
-              >
-                Next
-              </button>
+            <button
+              className="button button--primary button--next"
+              onClick={() => setStep(step + 1)}
+              disabled={!isStepValid(step)}
+            >
+              Next
+            </button>
           )}
           {step === 5 && (
             <button

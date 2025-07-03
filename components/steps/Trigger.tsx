@@ -18,13 +18,14 @@ const options = [
   },
 ];
 
-export default function Trigger({
-  selected,
-  setSelected,
-}: {
+interface TriggerProps {
   selected: number | null;
   setSelected: (val: number | null) => void;
-}) {
+}
+
+export default function Trigger({
+  selected,setSelected,}: TriggerProps) {
+    
   const handleOptionClick = (idx: number) => {
     setSelected(idx);
   };
