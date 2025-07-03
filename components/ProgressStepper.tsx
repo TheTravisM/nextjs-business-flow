@@ -1,6 +1,5 @@
 import React from "react";
 import CheckIcon from '@mui/icons-material/Check';
-import "../scss/components/ProgressStepper.scss";
 
 
 interface ProgressStepperProps {
@@ -9,7 +8,7 @@ interface ProgressStepperProps {
 
 export default function ProgressStepper({ step }: ProgressStepperProps) {
   const getStepClass = (stepNumber: number) => {
-    if (step > stepNumber) return " progress__step--successd";
+    if (step > stepNumber) return " progress__step--success";
     if (step === stepNumber || (stepNumber <= 2 && step <= 2)) return " progress__step--active";
     return "";
   };

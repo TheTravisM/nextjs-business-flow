@@ -1,70 +1,112 @@
-@import "../scss/reset.scss";
-@import "../scss/global.scss";
-@import "../scss/components/buttons.scss";
-@import "../scss/components/ProgressStepper.scss";
-@import "../scss/components/options.scss";
+@import "../styles/reset.scss";
+@import "../styles/global.scss";
+@import "../styles/components/buttons.scss";
+@import "../styles/components/progress-stepper.scss";
+@import "../styles/components/options.scss";
 
+// Variables for content styling
+$content-margin: 12px 0 16px;
+$content-title-margin: 12px 0;
+$content-details-margin: -6px 0 12px 0;
+$content-well-padding: 6px;
+$content-well-gap: 6px;
 
-/* Content */
+$font-family-base: 'Roboto', sans-serif;
+$color-text-secondary: #424242;
+$color-well-bg: #fafafa;
+$color-well-border: #e0e0e0;
+$color-bullet: #242424;
 
+$bullet-size: 3px;
+$bullet-offset: -12px;
+
+/* Content Component */
 .content {
-  margin: 12px 0 16px;
+  margin: $content-margin;
+
+  // ELEMENT: title
   &__title {
-    font-family: Roboto;
+    font-family: $font-family-base;
     font-weight: 400;
     font-size: 16px;
     line-height: 22px;
-    letter-spacing: 0px;
-    margin: 12px 0;
+    letter-spacing: 0;
+    margin: $content-title-margin;
+    color: $text-primary;
   }
-    &__details {
-    font-family: Roboto;
+
+  // ELEMENT: details
+  &__details {
+    font-family: $font-family-base;
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.32px;
-    color: rgba(66, 66, 66, 1);
-    margin: -6px 0 12px 0;
+    color: $color-text-secondary;
+    margin: $content-details-margin;
   }
+
+  // ELEMENT: well (info box)
   &__well {
-    background: rgba(250, 250, 250, 1);
-    border: 1px solid rgba(224, 224, 224, 1);
-    gap: 6px;
+    background-color: $color-well-bg;
+    border: 1px solid $color-well-border;
     border-radius: 4px;
-    padding: 6px;
+    padding: $content-well-padding;
+    gap: $content-well-gap;
+
     p {
-      font-family: Roboto;
+      font-family: $font-family-base;
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
       letter-spacing: 0.25px;
+      margin-bottom: $content-well-gap;
+      color: $text-primary;
     }
+
     ul {
-      margin-left: 20px;
-      li{
+      margin: 0;
+      padding-left: 20px;
+      list-style: none;
+
+      li {
         position: relative;
+
+        // Custom bullet point
         &::before {
-        position: absolute;
-        content: "";
-        height:3px;
-        width: 3px;
-        background-color: #242424;
-        top: 50%;
-        left: -12px;
-        transform: translateY(-50%);
-        border-radius: 50%;
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: $bullet-offset;
+          width: $bullet-size;
+          height: $bullet-size;
+          background-color: $color-bullet;
+          border-radius: 50%;
+          transform: translateY(-50%);
+        }
+
+        // Hide default marker
+        &::marker {
+          display: none;
+        }
       }
-      &::marker {
-        font-size: 1px;
-        z-index: -1;
-      }
-    }
     }
   }
 }
 
-
-/* Hidden utility */
+/* Utility Classes */
 .hidden {
-  display: none;
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

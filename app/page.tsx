@@ -1,5 +1,5 @@
 "use client";
-import { use, useState } from "react";
+import { useState, useEffect } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
@@ -14,10 +14,8 @@ import Review01 from "../components/steps/Review01";
 
 export default function Home() {
   const [step, setStep] = useState(1);
-
-  const [criteria01Selected, setCriteria01Selected] = useState<number | null>(
-    null
-  );
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [criteria01Selected, setCriteria01Selected] = useState<number | null>(null);
   const [criteria02Selected, setCriteria02Selected] = useState<boolean[]>(
     Array(8).fill(false)
   );
@@ -28,6 +26,44 @@ export default function Home() {
     false,
   ]);
 
+    // Load saved data on component mount
+    useEffect(() => {
+      try {
+        const savedWorkflow = localStorage.getItem('workflow-draft');
+        if (savedWorkflow) {
+          const data = JSON.parse(savedWorkflow);
+          setStep(data.step || 1);
+          setCriteria01Selected(data.criteria01Selected || null);
+          setCriteria02Selected(data.criteria02Selected || Array(8).fill(false));
+          setTriggerSelected(data.triggerSelected || null);
+          setActionSelected(data.actionSelected || [false, false, false]);
+        }
+      } catch (error) {
+        console.error('Failed to load saved workflow:', error);
+        localStorage.removeItem('workflow-draft'); // Clear corrupted data
+      }
+    }, []);
+
+    // Save current state
+    const saveWorkflowDraft = () => {
+      try {
+        const workflowData = {
+          step,
+          criteria01Selected,
+          criteria02Selected,
+          triggerSelected,
+          actionSelected,
+          savedAt: new Date().toISOString()
+        };
+        
+        localStorage.setItem('workflow-draft', JSON.stringify(workflowData));
+        alert('Workflow saved! You can continue later.');
+      } catch (error) {
+        console.error('Failed to save workflow:', error);
+        alert('Failed to save workflow. Please try again.');
+      }
+    };
+
   // Filter selected labels for Review01
   const selectedCriteria02Labels = criteria02Options
     .filter((_, idx) => criteria02Selected[idx])
@@ -35,6 +71,20 @@ export default function Home() {
 
   const selectedTriggerLabel =
     triggerSelected !== null ? triggerOptions[triggerSelected].label : "";
+
+      const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+    const isStepValid = (currentStep: number) => {
+      switch (currentStep) {
+        case 1: return criteria01Selected !== null;
+        case 2: return criteria02Selected.some(Boolean);
+        case 3: return triggerSelected !== null;
+        case 4: return actionSelected.some(Boolean);
+        default: return true;
+      }
+    };
 
   const stepComponents: Record<number, React.ReactElement> = {
     1: (
@@ -69,10 +119,10 @@ export default function Home() {
 
   return (
     <main className="main">
-      <dialog id="new-work-flow" className="modal" open>
+      <dialog id="new-work-flow" className="modal" open={isModalOpen}>
         <header className="modal__header">
           <h5 className="modal__title">New Work Flow</h5>
-          <button className="modal__close">
+          <button className="modal__close" onClick={closeModal}>
             <CloseIcon />
           </button>
         </header>
@@ -92,29 +142,35 @@ export default function Home() {
             </button>
           )}
           {step >= 3 && (
-            <button className="button button--finish-later">
+            <button
+              className="button button--finish-later"
+              onClick={saveWorkflowDraft}
+            >
               Save and Finish Later
             </button>
           )}
           {step < 5 && (
-            <button
-              className="button button--primary button--next"
-              onClick={() => setStep(step + 1)}
-              disabled={
-                (step === 1 && criteria01Selected === null) || // Criteria01: no selection
-                (step === 2 && !criteria02Selected.some(Boolean)) || // Criteria02: no options selected
-                (step === 3 && triggerSelected === null) || // Trigger01: no selection
-                (step === 4 && !actionSelected.some(Boolean)) // Action01: no actions selected
-              }
-            >
-              Next
-            </button>
+              <button
+                className="button button--primary button--next"
+                onClick={() => setStep(step + 1)}
+                disabled={!isStepValid(step)}
+              >
+                Next
+              </button>
           )}
           {step === 5 && (
             <button
               id="save-btn"
               className="button button--primary button--save-draft"
-              hidden
+              onClick={() => {
+                localStorage.removeItem("workflow-draft"); // Clear draft
+                alert("Workflow draft saved successfully!");
+                setStep(1);
+                setCriteria01Selected(null);
+                setCriteria02Selected(Array(8).fill(false));
+                setTriggerSelected(null);
+                setActionSelected([false, false, false]);
+              }}
             >
               Save Draft
             </button>

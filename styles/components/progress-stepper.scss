@@ -30,8 +30,6 @@
     font-weight: 500;
     color: #666;
     cursor: pointer;
-    border-radius: 3px;
-    transition: all 0.2s ease;
 
     &:hover {}
 
@@ -77,6 +75,18 @@
         z-index: 1;
       }
     }
+
+  }
+
+  &__label {
+    font-family: Roboto;
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+letter-spacing: 0.32px;
+text-align: center;
+vertical-align: middle;
+color: #242424;
 
   }
 }
