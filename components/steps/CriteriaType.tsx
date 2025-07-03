@@ -51,7 +51,7 @@ const options = [
   },
 ];
 
-export default function Criteria02({
+export default function CriteriaType({
   selected,
   setSelected,
 }: {
@@ -103,4 +103,4 @@ export default function Criteria02({
     </main>
   );
 }
-export { options as criteria02Options };
+export { options as CriteriaTypeOptions };

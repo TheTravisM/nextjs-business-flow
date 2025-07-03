@@ -24,12 +24,14 @@ const options = [
   },
 ];
 
-interface Action01Props {
+interface ActionProps {
   selected: boolean[];
   setSelected: (val: boolean[]) => void;
 }
 
-export default function Action01({ selected, setSelected }: Action01Props) {
+export default function Action({ 
+  selected, 
+  setSelected }: ActionProps) {
   const handleOptionClick = (idx: number) => {
     const updated = [...selected];
     updated[idx] = !updated[idx];

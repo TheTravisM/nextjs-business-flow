@@ -1,11 +1,11 @@
 import React from "react";
 
-interface Review01Props {
-  criteria02Selections: string[];
+interface ReviewProps {
+  criteriaTypeSelections: string[];
   triggerSelection: string;
 }
 
-export default function Review01({ criteria02Selections, triggerSelection}: Review01Props) {
+export default function Review({ criteriaTypeSelections, triggerSelection}: ReviewProps) {
   
   const triggerText = triggerSelection === "record created" 
     ? "created" 
@@ -23,7 +23,7 @@ export default function Review01({ criteria02Selections, triggerSelection}: Revi
       <section className="content__well">
         <p>When any of the following record types is {triggerText}, add a flag.</p>
         <ul>
-          {criteria02Selections.map(label => (
+          {criteriaTypeSelections.map(label => (
             <li key={label}>{label}</li>
           ))}
         </ul>

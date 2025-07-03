@@ -53,7 +53,7 @@ const options = [
   },
 ];
 
-export default function Criteria01({
+export default function Criteria({
   selected,
   setSelected,
 }: {

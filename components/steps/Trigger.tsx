@@ -18,7 +18,7 @@ const options = [
   },
 ];
 
-export default function Trigger01({
+export default function Trigger({
   selected,
   setSelected,
 }: {
