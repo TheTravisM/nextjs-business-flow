@@ -29,9 +29,8 @@ interface ActionProps {
   setSelected: (val: boolean[]) => void;
 }
 
-export default function Action({ 
-  selected, 
-  setSelected }: ActionProps) {
+export default function Action({ selected, setSelected }: ActionProps) {
+  
   const handleOptionClick = (idx: number) => {
     const updated = [...selected];
     updated[idx] = !updated[idx];
@@ -40,27 +39,33 @@ export default function Action({
 
   return (
     <>
-    <main id="action" className="modal__content content--action">
-      <h2 className="content__title">
-        What should happen once the workflow begins?
-      </h2>
-      <p className="content__details">
-        Select at least 1 action to continue. You can add additional actions later
-      </p>
-      <section className="options options--action">
-        {options.map((option, idx) => (
-          <div
-            key={option.label}
-            className={`options__item${selected[idx] ? " options__item--selected" : ""}`}
-            onClick={() => handleOptionClick(idx)}
-            style={{ cursor: "pointer" }}
-          >
-            {selected[idx] ? option.filled : option.outlined}
-            <span className="options__text">{option.label}</span>
-          </div>
-        ))}
-      </section>
-    </main>
+      <main id="action" className="modal__content content--action">
+        <h2 className="content__title">
+          What should happen once the workflow begins?
+        </h2>
+        <p className="content__details">
+          Select at least 1 action to continue. You can add additional actions
+          later
+        </p>
+        <section className="options options--action">
+          {options.map((option, idx) => (
+            <div
+              role="button"
+              tabIndex={0}
+              key={option.label}
+              data-testid="option-item"
+              className={`options__item${
+                selected[idx] ? " options__item--selected" : ""
+              }`}
+              onClick={() => handleOptionClick(idx)}
+              style={{ cursor: "pointer" }}
+            >
+              {selected[idx] ? option.filled : option.outlined}
+              <span className="options__text">{option.label}</span>
+            </div>
+          ))}
+        </section>
+      </main>
     </>
   );
 }

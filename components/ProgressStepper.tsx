@@ -7,6 +7,7 @@ interface ProgressStepperProps {
 }
 
 export default function ProgressStepper({ step }: ProgressStepperProps) {
+  
   const getStepClass = (stepNumber: number) => {
     if (step > stepNumber) return " progress__step--success";
     if (step === stepNumber || (stepNumber <= 2 && step <= 2)) return " progress__step--active";
