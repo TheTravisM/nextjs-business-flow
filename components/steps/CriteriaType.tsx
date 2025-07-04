@@ -66,6 +66,7 @@ export default function CriteriaType({
   selected,
   setSelected,
 }: CriteriaTypeProps) {
+
   const allSelected = selected.every(Boolean);
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +87,10 @@ export default function CriteriaType({
       <section className="options options--criteria-01">
         {options.map((option, idx) => (
           <div
+            role="button"
+            tabIndex={0}
             key={option.label}
+            data-testid="option-item"
             className={`options__item${
               selected[idx] ? " options__item--selected" : ""
             }`}
@@ -105,7 +109,7 @@ export default function CriteriaType({
             checked={allSelected}
             onChange={handleSelectAll}
           />
-          Select All
+          Select all
         </label>
       </section>
     </main>

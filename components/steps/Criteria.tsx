@@ -69,7 +69,10 @@ export default function Criteria({ selected, setSelected }: CriteriaProps) {
       <section className="options options--criteria-01">
         {options.map((option, idx) => (
           <div
+            role="button"
+            tabIndex={0}
             key={option.label}
+            data-testid="option-item"
             className={
               `options__item options__item--${option.label.toLowerCase()}` +
               (selected === idx ? " options__item--selected" : "")

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Review Component displays correct information when all data is provided 1`] = `
+<div>
+  <main
+    class="modal__content content--review"
+    id="review"
+  >
+    <h2
+      class="content__title"
+    >
+      Review your workflow below. Click a step to make edits if needed.
+    </h2>
+    <section
+      class="content__well"
+    >
+      <p>
+        When any of the following record types is 
+        processed
+        , add a flag.
+      </p>
+      <ul>
+        <li>
+          Password
+        </li>
+        <li>
+          Website
+        </li>
+        <li>
+          Network
+        </li>
+      </ul>
+    </section>
+  </main>
+</div>
+`;

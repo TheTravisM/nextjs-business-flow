@@ -33,10 +33,13 @@ export default function Trigger({
   return (
     <main id="trigger" className="modal__content">
       <h2 className="content__title">What should trigger this workflow?</h2>
-      <section className="options options--criteria-01">
+      <section className="options options--trigger">
         {options.map((option, idx) => (
           <div
+            role="button"
+            tabIndex={0}
             key={option.label}
+            data-testid="option-item"
             className={
               "options__item" +
               (selected === idx ? " options__item--selected" : "")
