@@ -10,7 +10,6 @@ import { CriteriaTypeOptions } from "../components/steps/CriteriaType";
 import { triggerOptions } from "../components/steps/Trigger";
 
 export function useWorkflow() {
-  // All state variables
   const [workflowState, setWorkflowState] = useState({
     step: WORKFLOW_STEPS.CRITERIA,
     isModalOpen: true,
@@ -18,6 +17,9 @@ export function useWorkflow() {
     criteriaTypeSelected: Array(8).fill(false) as boolean[],
     triggerSelected: null as number | null,
     actionSelected: [false, false, false] as boolean[],
+    isLoading: false,
+    isSaving: false,
+    error: null as string | null,
   });
 
   const updateWorkflowState = (updates: Partial<typeof workflowState>) => {
@@ -38,20 +40,49 @@ export function useWorkflow() {
 
   const setStep = (value: number) => updateWorkflowState({ step: value });
 
-  // Load saved data
   useEffect(() => {
-    const savedData = loadWorkflowFromStorage();
-    if (savedData) {
-      setWorkflowState({
-        step: savedData.step || WORKFLOW_STEPS.CRITERIA,
-        isModalOpen: true,
-        criteriaSelected: savedData.criteriaSelected || null,
-        criteriaTypeSelected:
-          savedData.criteriaTypeSelected || Array(8).fill(false),
-        triggerSelected: savedData.triggerSelected || null,
-        actionSelected: savedData.actionSelected || [false, false, false],
+    const loadSavedWorkflow = async () => {
+      // Start loading
+      updateWorkflowState({
+        isLoading: true,
+        error: null,
       });
-    }
+
+      try {
+        const savedData = loadWorkflowFromStorage();
+
+        if (savedData) {
+          // Successfully loaded saved data
+          setWorkflowState({
+            step: savedData.step || WORKFLOW_STEPS.CRITERIA,
+            isModalOpen: true,
+            criteriaSelected: savedData.criteriaSelected || null,
+            criteriaTypeSelected:
+              savedData.criteriaTypeSelected || Array(8).fill(false),
+            triggerSelected: savedData.triggerSelected || null,
+            actionSelected: savedData.actionSelected || [false, false, false],
+            isLoading: false,
+            isSaving: false,
+            error: null,
+          });
+        } else {
+          // No saved data found - for new users
+          updateWorkflowState({
+            isLoading: false,
+            error: null,
+          });
+        }
+      } catch (error) {
+        // Handle any errors during loading
+        console.error("Failed to load workflow data:", error);
+        updateWorkflowState({
+          isLoading: false,
+          error: "Failed to load saved workflow data. Starting fresh.",
+        });
+      }
+    };
+
+    loadSavedWorkflow();
   }, []);
 
   // Reset state function
@@ -63,6 +94,9 @@ export function useWorkflow() {
       criteriaTypeSelected: Array(8).fill(false),
       triggerSelected: null,
       actionSelected: [false, false, false],
+      isLoading: false,
+      isSaving: false,
+      error: null,
     });
   };
 
@@ -85,14 +119,31 @@ export function useWorkflow() {
     }
   };
 
-  // Handle save draft function
-  const handleSaveDraft = () => {
-    const success = clearWorkflowFromStorage();
-    if (success) {
-      alert("Workflow draft saved successfully!");
-      resetWorkflowState();
-    } else {
-      alert("Failed to create workflow. Please try again.");
+  const handleSaveDraft = async () => {
+    // Start saving - show loading state
+    updateWorkflowState({
+      isSaving: true,
+      error: null,
+    });
+
+    try {
+      const success = clearWorkflowFromStorage();
+
+      if (success) {
+        alert("Workflow draft saved successfully!");
+        resetWorkflowState(); // This will also clear isSaving and error
+      } else {
+        updateWorkflowState({
+          isSaving: false,
+          error: "Failed to create workflow. Please try again.",
+        });
+      }
+    } catch (error) {
+      console.error("Error completing workflow:", error);
+      updateWorkflowState({
+        isSaving: false,
+        error: "An unexpected error occurred while completing the workflow.",
+      });
     }
   };
 
@@ -133,8 +184,6 @@ export function useWorkflow() {
   const goToPrevStep = () =>
     updateWorkflowState({ step: workflowState.step - 1 });
 
-  // Return everything needed by the component
-
   return {
     // State values
     step: workflowState.step,
@@ -144,7 +193,12 @@ export function useWorkflow() {
     triggerSelected: workflowState.triggerSelected,
     actionSelected: workflowState.actionSelected,
 
-    // Setters (these stay the same for your component)
+    // Add these new loading and error states:
+    isLoading: workflowState.isLoading,
+    isSaving: workflowState.isSaving,
+    error: workflowState.error,
+
+    // Setters
     setCriteriaSelected,
     setCriteriaTypeSelected,
     setTriggerSelected,

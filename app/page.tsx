@@ -15,6 +15,23 @@ import { WORKFLOW_STEPS } from "../constants/workflowSteps";
 export default function Home() {
   const workflow = useWorkflow();
 
+    // loading check at the start of the app
+  if (workflow.isLoading) {
+    return (
+      <main className="main">
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: '100vh',
+          flexDirection: 'column' 
+        }}>
+          <div>Loading workflow...</div>
+        </div>
+      </main>
+    );
+  }
+
   const renderStepComponent = (currentStep: number): React.ReactElement | null => {
     switch (currentStep) {
       case WORKFLOW_STEPS.CRITERIA:
@@ -72,6 +89,19 @@ export default function Home() {
           </button>
         </header>
 
+        {workflow.error && (
+          <div style={{ 
+            background: '#ffebee', 
+            color: '#c62828', 
+            padding: '12px', 
+            margin: '12px', 
+            borderRadius: '4px',
+            border: '1px solid #ffcdd2'
+          }}>
+            {workflow.error}
+          </div>
+        )}
+
         <ProgressStepper step={workflow.step} />
 
         {renderStepComponent(workflow.step)}
@@ -84,6 +114,7 @@ export default function Home() {
           onHandleSaveDraft={workflow.handleSaveDraft}
           isStepValid={workflow.isStepValid(workflow.step)}
           WORKFLOW_STEPS={WORKFLOW_STEPS}
+          isSaving={workflow.isSaving}
         />
       </dialog>
     </main>

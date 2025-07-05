@@ -8,6 +8,7 @@ interface WorkflowModalFooterProps {
   onSaveWorkflowDraft: () => void;
   onHandleSaveDraft: () => void;
   isStepValid: boolean;
+  isSaving: boolean;
   WORKFLOW_STEPS: {
     CRITERIA: number;
     CRITERIA_TYPE: number;
@@ -25,6 +26,7 @@ export default function WorkflowModalFooter({
   onHandleSaveDraft,
   isStepValid,
   WORKFLOW_STEPS,
+  isSaving, 
 }: WorkflowModalFooterProps) {
   return (
     <footer className="modal__footer">
@@ -32,6 +34,7 @@ export default function WorkflowModalFooter({
         <button
           className="button button--back"
           onClick={onBack}
+          disabled={isSaving}
         >
           <ArrowBackOutlinedIcon />
           Back
@@ -41,15 +44,16 @@ export default function WorkflowModalFooter({
         <button
           className="button button--finish-later"
           onClick={onSaveWorkflowDraft}
+          disabled={isSaving}
         >
-          Save and Finish Later
+          {isSaving ? "Saving..." : "Save and Finish Later"} 
         </button>
       )}
       {currentStep < WORKFLOW_STEPS.REVIEW && (
         <button
           className="button button--primary button--next"
           onClick={onNext}
-          disabled={!isStepValid}
+          disabled={!isStepValid || isSaving}
         >
           Next
         </button>
@@ -59,8 +63,9 @@ export default function WorkflowModalFooter({
           id="save-btn"
           className="button button--primary button--save-draft"
           onClick={onHandleSaveDraft}
+          disabled={isSaving}
         >
-          Save Draft
+          {isSaving ? "Saving..." : "Save Draft"}
         </button>
       )}
     </footer>
