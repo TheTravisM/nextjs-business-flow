@@ -1,4 +1,7 @@
 // --- BUTTONS ---
+@use '../abstracts';
+@use '../base';
+
 
 // --- VARIABLES ---
 // Define reusable values for easy maintenance.
@@ -15,13 +18,16 @@ $base-min-height: 36px;
 $base-padding: 8px 16px;
 $base-gap: 8px;
 
+
+$buttprim: #2563eb;
+
 // --- MIXINS ---
 // A mixin for common button styles to keep the code DRY.
 @mixin button-base {
   display: inline-flex; // Use inline-flex for button-like behavior
   align-items: center;
   justify-content: center;
-  font-family: $font-main;
+  font-family: base.$font-family-primary;
   font-size: $base-font-size;
   line-height: $base-line-height;
   letter-spacing: $base-letter-spacing;

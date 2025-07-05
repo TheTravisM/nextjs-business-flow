@@ -100,7 +100,6 @@ export function useWorkflow() {
     });
   };
 
-  // Save draft function
   const saveWorkflowDraft = () => {
     const workflowData: WorkflowState = {
       step: workflowState.step,

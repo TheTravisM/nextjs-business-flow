@@ -1,3 +1,6 @@
+@use '../abstracts';
+@use '../base';
+
 .progress {
   &__list {
     display: flex;
