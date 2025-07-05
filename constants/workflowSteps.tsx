@@ -1,0 +1,7 @@
+export const WORKFLOW_STEPS = {
+  CRITERIA: 1,
+  CRITERIA_TYPE: 2,
+  TRIGGER: 3,
+  ACTION: 4,
+  REVIEW: 5,
+};
