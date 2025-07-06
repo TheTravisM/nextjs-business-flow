@@ -52,6 +52,10 @@ $bullet-offset: -12px;
     border-radius: 4px;
     padding: $content-well-padding;
     gap: $content-well-gap;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
 
     p {
       font-family: $font-family-base;

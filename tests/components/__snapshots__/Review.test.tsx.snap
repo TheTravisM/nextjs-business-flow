@@ -3,33 +3,66 @@
 exports[`Review Component displays correct information when all data is provided 1`] = `
 <div>
   <main
+    aria-labelledby="review-title"
     class="modal__content content--review"
     id="review"
+    role="main"
   >
     <h2
       class="content__title"
+      id="review-title"
     >
       Review your workflow below. Click a step to make edits if needed.
     </h2>
     <section
+      aria-describedby="workflow-summary"
+      aria-labelledby="review-title"
       class="content__well"
+      role="region"
     >
-      <p>
+      <p
+        aria-live="polite"
+        id="workflow-summary"
+      >
         When any of the following record types is 
         processed
         , add a flag.
       </p>
-      <ul>
-        <li>
+      <ul
+        aria-describedby="workflow-summary"
+        aria-label="Selected record types"
+        role="list"
+      >
+        <li
+          aria-describedby="workflow-summary"
+          role="listitem"
+        >
           Password
         </li>
-        <li>
+        <li
+          aria-describedby="workflow-summary"
+          role="listitem"
+        >
           Website
         </li>
-        <li>
+        <li
+          aria-describedby="workflow-summary"
+          role="listitem"
+        >
           Network
         </li>
       </ul>
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="sr-only"
+      >
+        Workflow summary: 
+        3
+         record types selected for 
+        processed
+         trigger with flag action
+      </div>
     </section>
   </main>
 </div>
