@@ -40,11 +40,15 @@
 
 
       &:hover {
+        color: abstracts.$text-blue;
         background-color: abstracts.$bg-light;
         border: 1px solid abstracts.$text-blue;
         -moz-box-shadow: 0 0 0 1px abstracts.$text-blue;
         -webkit-box-shadow: 0 0 0 1px abstracts.$text-blue;
-        box-shadow: 0 0 0 1px abstracts.$text-blue; 
+        box-shadow: 0 0 0 1px abstracts.$text-blue;
+        * {
+          color: abstracts.$text-blue;
+        }
       }
     }
   }
@@ -71,18 +75,46 @@
     letter-spacing: 0.1px;
     flex: 1;
   }
-
   &__check-box {
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
-    input[type="checkbox"]{
-     
-      position: relative;
-      &:checked {
+    position: relative;
+    padding-left: 28px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: .25px;
+    margin-top: 4px;
 
-      }
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      height: 18px;
+      width: 18px;
+      border-radius: 4px;
+      border: 1px solid abstracts.$border-light;
+      background-color: white;
+      background-image: none;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 14px 14px;
+    }
+
+    &--checked::after {
+      content: '';
+      height: 20px;
+      width: 20px;
+      background-color: abstracts.$text-blue;
+      border-width: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='20px' height='20px' viewBox='0 -3 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.06066 6.4393C2.47487 5.85355 1.52513 5.85355 0.93934 6.4393C0.353553 7.0251 0.353553 7.9749 0.93934 8.5607L7.93934 15.5607C8.52513 16.1464 9.47487 16.1464 10.0607 15.5607L23.0607 2.56066C23.6464 1.97487 23.6464 1.02513 23.0607 0.43934C22.4749 -0.14645 21.5251 -0.14645 20.9393 0.43934L9 12.3787L3.06066 6.4393z' fill='white'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
     }
   }
 }
