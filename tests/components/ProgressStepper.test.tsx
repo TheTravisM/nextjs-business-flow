@@ -133,7 +133,7 @@ describe("ProgressStepper Component", () => {
     const { container } = render(<ProgressStepper step={1} />);
 
     // Check for the list element
-    const list = container.querySelector("ul");
+    const list = container.querySelector("ol");
     expect(list).toHaveClass("progress__list");
   });
 });
