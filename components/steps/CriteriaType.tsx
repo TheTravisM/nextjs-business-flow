@@ -101,7 +101,10 @@ export default function CriteriaType({
             <span className="options__text">{option.label}</span>
           </div>
         ))}
-        <label htmlFor="select-all" className="options__check-box">
+        <label 
+          htmlFor="select-all" 
+          className={`options__check-box ${allSelected ? " options__check-box--checked" : ""}`}
+        >
           <input
             type="checkbox"
             id="select-all"
