@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 import StoreIcon from "@mui/icons-material/Store";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
@@ -74,18 +74,32 @@ export default function CriteriaType({
   selected,
   setSelected,
 }: CriteriaTypeProps) {
-  const allSelected = selected.every(Boolean);
-  const selectedCount = selected.filter(Boolean).length;
 
-  const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelected(Array(options.length).fill(e.target.checked));
-  };
+  const allSelected = useMemo(
+    () => selected.every(Boolean), 
+    [selected]
+  );
 
-  const handleOptionClick = (idx: number) => {
-    const updated = [...selected];
-    updated[idx] = !updated[idx];
-    setSelected(updated);
-  };
+  const selectedCount = useMemo(
+    () => selected.filter(Boolean).length,
+    [selected]
+  );
+
+  const handleSelectAll = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSelected(Array(options.length).fill(e.target.checked));
+    },
+    [setSelected]
+  );
+
+  const handleOptionClick = useCallback(
+    (idx: number) => {
+      const updated = [...selected];
+      updated[idx] = !updated[idx];
+      setSelected(updated);
+    },
+    [selected, setSelected]
+  );
 
   return (
     <main

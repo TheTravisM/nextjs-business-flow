@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
 
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import AddIcon from "@mui/icons-material/AddOutlined";
+import AddIcon from "@mui/icons-material/Add";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 
@@ -25,28 +26,27 @@ interface TriggerProps {
   setSelected: (val: number | null) => void;
 }
 
-export default function Trigger({ selected, setSelected }: TriggerProps) {
-  const handleOptionClick = (idx: number) => {
-    setSelected(idx === selected ? null : idx);
-  };
+function Trigger({ selected, setSelected }: TriggerProps) {
+  const handleOptionClick = useCallback(
+    (idx: number) => {
+      setSelected(idx === selected ? null : idx);
+    },
+    [selected, setSelected]
+  );
 
-  return (
-    <main
-      id="trigger"
-      className="modal__content"
-      role="main"
-      aria-labelledby="trigger-title"
-    >
-      <h2 id="trigger-title" className="content__title">
-        What should trigger this workflow?
-      </h2>
-
+  const accessibilityAnnouncement = useMemo(
+    () => (
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         {selected !== null
           ? `${options[selected].label} trigger selected`
           : "No trigger selected"}
       </div>
+    ),
+    [selected]
+  );
 
+  const optionsList = useMemo(
+    () => (
       <section
         className="options options--trigger"
         role="radiogroup"
@@ -90,7 +90,31 @@ export default function Trigger({ selected, setSelected }: TriggerProps) {
           </button>
         )}
       </section>
+    ),
+    [selected, handleOptionClick]
+  );
+
+  return (
+    <main
+      id="trigger"
+      className="modal__content"
+      role="main"
+      aria-labelledby="trigger-title"
+    >
+      <h2 id="trigger-title" className="content__title">
+        What should trigger this workflow?
+      </h2>
+
+      {accessibilityAnnouncement}
+      {optionsList}
     </main>
   );
 }
+
+Trigger.propTypes = {
+  selected: PropTypes.number,
+  setSelected: PropTypes.func.isRequired
+};
+
+export default React.memo(Trigger);
 export { options as triggerOptions };
