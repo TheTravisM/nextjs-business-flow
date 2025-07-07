@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 
 import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 import StoreIcon from "@mui/icons-material/Store";
@@ -66,9 +66,13 @@ interface CriteriaProps {
 }
 
 export default function Criteria({ selected, setSelected }: CriteriaProps) {
-  const handleOptionClick = (idx: number) => {
-    setSelected(idx === selected ? null : idx);
-  };
+
+  const handleOptionClick = useCallback(
+    (idx: number) => {
+      setSelected(idx === selected ? null : idx);
+    },
+    [selected, setSelected]
+  );
 
   return (
     <main
